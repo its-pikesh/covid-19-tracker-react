@@ -1,18 +1,28 @@
 import React from "react";
-//import CountUp from "react-countup";
+import "./InfoBox.css";
+import CountUp from "react-countup";
 import { Card, CardContent, Typography } from "@material-ui/core";
 
-function InfoBox({ title, cases, total }) {
-  //console.table(total);
-  //<CountUp start={0} end={total} duration={2.5} separator="," />
-
+function InfoBox({ title, cases, isRed, Active, total, ...props }) {
+  if (!cases && !total) {
+    return "Loading...";
+  }
   return (
-    <Card>
+    <Card
+      onClick={props.onClick}
+      className={`infoBox ${Active && "infoBox--selected"} ${
+        isRed && "infoBox--red"
+      }`}
+    >
       <CardContent>
-        <Typography color="textSecondary">{title}</Typography>
-        <h2 className="infoBox_cases">{cases}</h2>
+        <Typography className="infoBox_title" color="textSecondary">
+          {title}
+        </Typography>
+        <h2 className={`infoBox_cases ${!isRed && "infoBox__cases--green"}`}>
+          <CountUp end={cases} duration={2.5} separator="," prefix="+" />
+        </h2>
         <Typography className="infoBox_total" color="textSecondary">
-          {total}
+          <CountUp end={total} duration={4} separator="," prefix="Total: " />
         </Typography>
       </CardContent>
     </Card>

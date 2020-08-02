@@ -22,6 +22,8 @@ function App() {
   const [mapCenter, setMapCenter] = useState({ lat: 20.5937, lng: 78.9629 });
   const [mapZoom, setMapZoom] = useState(4);
   const [mapCountries, setmapCountries] = useState([]);
+  const [casesType, setcasesType] = useState("cases");
+
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -70,7 +72,7 @@ function App() {
     <div className="app">
       <div className="app_left">
         <div className="app_header">
-          <h1>Covid-19 tracker</h1>
+          <h1>COVID-19 TRACKER</h1>
           <FormControl className="app_dropdown">
             <Select
               varient="outlined"
@@ -86,29 +88,43 @@ function App() {
         </div>
         <div className="app_stats">
           <InfoBox
-            title="Total Cases"
+            isRed
+            Active={casesType === "cases"}
+            onClick={(e) => setcasesType("cases")}
+            title="Confirmed"
             cases={countryInfo.todayCases}
             total={countryInfo.cases}
           />
           <InfoBox
+            Active={casesType === "recovered"}
+            onClick={(e) => setcasesType("recovered")}
             title="Recovered"
             cases={countryInfo.todayRecovered}
             total={countryInfo.recovered}
           />
           <InfoBox
+            isRed
+            Active={casesType === "deaths"}
+            onClick={(e) => setcasesType("deaths")}
             title="Deaths"
             cases={countryInfo.todayDeaths}
             total={countryInfo.deaths}
           />
         </div>
-        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
+
+        <Map
+          casesType={casesType}
+          countries={mapCountries}
+          center={mapCenter}
+          zoom={mapZoom}
+        />
       </div>
       <Card className="app_right">
         <CardContent>
           <h3>Live cases By country</h3>
           <Table countries={tableData} />
-          <h3>WorldWide new cases</h3>
-          <LineGraph />
+          <h3>WorldWide new {casesType}</h3>
+          <LineGraph className="app_graph" casesType={casesType} />
         </CardContent>
       </Card>
     </div>
