@@ -3,12 +3,12 @@
   cursor: pointer;
 }
 .infoBox:not(:last-child) {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 .infoBox_cases {
   color: #cc1034;
   font-weight: 600;
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   margin-bottom: 0.5rem;
 }
 .infoBox_total {

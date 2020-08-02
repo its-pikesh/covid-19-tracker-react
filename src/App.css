@@ -34,13 +34,16 @@ body {
   display: flex;
   flex-direction: column;
 }
-.app_right .muiCardContent-root {
+.app_right .MuiCardContent-root {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 .app_graph {
   flex-grow: 1;
+}
+.app_graphTitle {
+  margin-top: 20px;
 }
 
 @media (max-width: 990px) {
