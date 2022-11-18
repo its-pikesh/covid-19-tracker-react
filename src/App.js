@@ -30,7 +30,7 @@ function App() {
       .then((data) => {
         setCountryInfo(data);
       });
-  }, []);
+  }, [country]);
   useEffect(() => {
     //async -> send a request, wait for it, do something with it
     const getCountriesData = async () => {
@@ -64,7 +64,13 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
-        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        if(data.countryInfo){
+          setMapCenter([data.countryInfo.lat, data.countryInfo.long])
+        }
+        else{
+          setCountry("WorldWide")
+          setMapCenter({ lat: 20.5937, lng: 78.9629 })
+        }
       });
   };
 
